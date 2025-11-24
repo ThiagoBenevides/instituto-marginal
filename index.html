@@ -4,10 +4,242 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instituto de Pesquisas Marginais</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* RESET & VARIÁVEIS */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #ff0055; /* Rosa Punk */
+            --accent-secondary: #00ffaa; /* Verde Terminal */
+            --border-color: #333;
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+        }
+
+        /* LAYOUT */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            min-height: 100vh;
+            background-color: #111;
+        }
+
+        /* DECORAÇÕES */
+        .punk-decoration {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .punk-decoration:nth-child(1) { top: 20px; left: -15px; transform: rotate(-15deg); }
+        .punk-decoration:nth-child(2) { top: 100px; right: 20px; font-size: 3rem; animation: flicker 2s infinite; }
+        .punk-decoration:nth-child(3) { bottom: 20px; left: 20px; }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 0.9; }
+            20%, 24%, 55% { opacity: 0.2; }
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+            border-bottom: 2px solid var(--text-color);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: var(--text-color);
+            text-shadow: 2px 2px 0px var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* NAV */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(17, 17, 17, 0.95);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+            text-decoration: line-through;
+        }
+
+        .nav-link::before {
+            content: '[';
+            margin-right: 5px;
+            color: var(--accent-secondary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .nav-link::after {
+            content: ']';
+            margin-left: 5px;
+            color: var(--accent-secondary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .nav-link:hover::before, .nav-link:hover::after {
+            opacity: 1;
+        }
+
+        /* MAIN CONTENT */
+        .manifesto {
+            padding: 40px 20px;
+            text-align: justify;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            margin: 40px 0 20px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            color: #fff;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* CARDS */
+        .sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .section-card {
+            border: 1px solid var(--text-color);
+            padding: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: #1a1a1a;
+        }
+
+        .section-card:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 5px 5px 0px var(--accent-secondary);
+        }
+
+        .section-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        /* BUTTONS */
+        .cta-button {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            font-family: var(--font-main);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 600px) {
+            .sections {
+                grid-template-columns: 1fr;
+            }
+            .logo {
+                font-size: 1.8rem;
+            }
+            .container {
+                border: none;
+            }
+        }
+        
+        /* SELEÇÃO DE TEXTO */
+        ::selection {
+            background: var(--accent-secondary);
+            color: #000;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        <!-- Decorações soltas -->
         <div class="punk-decoration">⚡</div>
         <div class="punk-decoration">🔥</div>
         <div class="punk-decoration">💀</div>
@@ -20,70 +252,74 @@
         <nav class="nav">
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Início</a>
-                <a href="artigos.html" class="nav-link">Artigos</a>
-                <a href="index.html#manifesto" class="nav-link">Manifesto</a>
+                <a href="#" class="nav-link">Artigos</a>
+                <a href="#manifesto" class="nav-link">Manifesto</a>
             </div>
         </nav>
 
         <main class="main-content">
             <section class="manifesto" id="manifesto">
                 <h2>Manifesto Marginal</h2>
-                <p> Nós rejeitamos o conhecimento pasteurizado, na verdade de estufa, na teoria que nunca sentiu o frio da madrugada. Rejeitamos a pesquisa que observa a vida através de um vidro blindado, que cataloga a dor em
-                planilhas e transforma o grito em dados percentuais. A academia construiu suas torres para não ter que olhar para baixo. Nós nascemos do chão, e é para o chão que nosso olhar se volta. A verdade deles é assé´tica; a nossa fede a humanidade</p>
                 <p>
-                    Eles buscam o universal; nós nos afogamos no particular. Eles buscam a lei que rege o todo; nós buscamos a exceção que prova que o todo é uma mentira. A verdade não está na média, mas nos extremos. Não está no centro da curva de Gauss, mas nas margens esquecidas onde a estatística se desfaz em um rosto, em um nome, em uma história humana
+                    Nós rejeitamos o conhecimento pasteurizado, criado em estufa, a teoria que nunca sentiu o frio da madrugada. Rejeitamos a pesquisa que observa a vida através de um vidro blindado, que cataloga a dor em planilhas e transforma o grito em dados percentuais. A academia construiu suas torres para não ter que olhar para baixo. Nós nascemos do chão, e é para o chão que nosso olhar se volta. A verdade deles é asséptica; a nossa fede a humanidade.
                 </p>
+                <p>
+                    Eles buscam o universal; nós nos afogamos no particular. Eles buscam a lei que rege o todo; nós buscamos a exceção que prova que o todo é uma mentira. A verdade não está na média, mas nos extremos. Não está no centro da curva de Gauss, mas nas margens esquecidas onde a estatística se desfaz em um rosto, em um nome, em uma história humana.
+                </p>
+
                 <h2>A afirmação da Existência Bruta</h2>
                 <p>
-                    Nossa universidade é a esquina sob a luz trêmula do posto. Nossos livros são as pichações nos murs, as conversas ouvidas no último ônibus, os objetos abandonados na calçada. Nossa filosofia
-                    não nasce da contemplação serena, mas da náusea que precede toda grande verdade- a náusea de encarar a liberdade atroz d homem despojado de tudo.
+                    Nossa universidade é a esquina sob a luz trêmula do posto. Nossos livros são as pichações nos muros, as conversas ouvidas no último ônibus, os objetos abandonados na calçada. Nossa filosofia não nasce da contemplação serena, mas da náusea que precede toda grande verdade — a náusea de encarar a liberdade atroz do homem despojado de tudo.
                 </p>
                 <p>
-                    Não buscamos a essência das coisas; nós testemunhamos a brutalidade de sua existência. A cadeira não é o ideal platônico de 'cadeira'; é esta madeira lascada, este prego enferrujado, este objeto que sustenta o peso de um corpo cansado, aqui e agora. O ser humano não é um conceito, é
-                    este corpo que treme de rio, que anseia, que sangra, que improvisa para sobreviver a mais um dia. A existência precede aessência, e a existência, meus caros, é suja, caótica e gloriosamente imperfeita.
+                    Não buscamos a essência das coisas; nós testemunhamos a brutalidade de sua existência. A cadeira não é o ideal platônico de 'cadeira'; é esta madeira lascada, este prego enferrujado, este objeto que sustenta o peso de um corpo cansado, aqui e agora. O ser humano não é um conceito, é este corpo que treme de frio, que anseia, que sangra, que improvisa para sobreviver a mais um dia. A existência precede a essência, e a existência, meus caros, é suja, caótica e gloriosamente imperfeita.
                 </p>
-                <h2>O métdo a deriva</h2>
+
+                <h2>O método à deriva</h2>
                 <p>
                     Nosso método é a falta de método. É a entrega. Caminhar é o nosso método. Olhar é o nosso rigor. Escutar é o nosso instrumento. Nós não vamos a campo com perguntas prontas; nós deixamos que o campo nos faça em pedaços. A verdadeira pesquisa marginal não busca respostas, ela se deixa contaminar pelas perguntas que emanam do asfalto.
                 </p>
                 <p>
-                    Somos condenados a ser livres, e por isso nossa pesquisa é livre. Sem hipóteses pre´vias, sem grupos de controle. O único grupo de controle é a nossa própria covardia, a vontade de desviar o olhar, de voltar para o conforto de uma conclusão arrumada. A nossa ética é a da próximidade: não se pode falar da fome sem ter o estomago vazio. Não se pode falar do desespero sem ter olhado o abismo nos olhos.
+                    Somos condenados a ser livres, e por isso nossa pesquisa é livre. Sem hipóteses prévias, sem grupos de controle. O único grupo de controle é a nossa própria covardia, a vontade de desviar o olhar, de voltar para o conforto de uma conclusão arrumada. A nossa ética é a da proximidade: não se pode falar da fome sem ter o estômago vazio. Não se pode falar do desespero sem ter olhado o abismo nos olhos.
                 </p>
+
                 <h2>O objeto é o resto</h2>
                 <p>
-                    O que nós pesquisamos?
-                    Pesquisamos a lógica do viciado e a fé do desesperado.
-                    Pesquisamos a teologia do mendigo que conversa com os deuses na sarjeta.
-                    Pesquisamos a geometria da gambiarra, a arquitetura da ocupação.
-                    Pesquisamos a beleza na ferrugem, a poesia no lio, a esperança no improvável.
-                    Pesquisamos o silêncio que se instala depois que a autoridade vira as costas
+                    <strong>O que nós pesquisamos?</strong><br>
+                    Pesquisamos a lógica do viciado e a fé do desesperado.<br>
+                    Pesquisamos a teologia do mendigo que conversa com os deuses na sarjeta.<br>
+                    Pesquisamos a geometria da gambiarra, a arquitetura da ocupação.<br>
+                    Pesquisamos a beleza na ferrugem, a poesia no lixo, a esperança no improvável.<br>
+                    Pesquisamos o silêncio que se instala depois que a autoridade vira as costas.<br>
                     Pesquisamos as hierarquias invisíveis da rua, os códigos de honra que não estão escritos em lei nenhuma.
-
-                    Nosso campo de estudo é o Absurdo: o conflito eterno entre o grito humano por sentido e o silêncio gelado do universo. Encontramos esse Absurdo não nos grandestratados,
-                    mas no homem que varre a mesma calçada todos os dias, na mulher que cria um jardim em uma lata de tinta, no riso que explode no meio do velório.
-                    
                 </p>
+                <p>
+                    Nosso campo de estudo é o <em>Absurdo</em>: o conflito eterno entre o grito humano por sentido e o silêncio gelado do universo. Encontramos esse Absurdo não nos grandes tratados, mas no homem que varre a mesma calçada todos os dias, na mulher que cria um jardim em uma lata de tinta, no riso que explode no meio do velório.
+                </p>
+
                 <h2>O chamado ao desconforto</h2>
                 <p>
-                    Este não é um convite para se juntar a nós, pois não há um 'nós' a que se juntar. Não há instituição, não háverba, não há diploma. Este é um chamado para que você reconheça sua própria condição marginal. É um chamado para que você inicie sua própria pesquisa na periferia da sua existência.
-
+                    Este não é um convite para se juntar a nós, pois não há um 'nós' a que se juntar. Não há instituição, não há verba, não há diploma. Este é um chamado para que você reconheça sua própria condição marginal. É um chamado para que você inicie sua própria pesquisa na periferia da sua existência.
+                </p>
+                <p>
                     Olhe para o que você evita. Escute o que te incomoda. Toque naquilo que te causa repulsa. É ali, nesse território de descontento, que a verdade nua se esconde.
-
-                    Não oferecemos respostas. oferecemos o espelho quebrado. Cabe a você juntar os cacos e, no relfexo distorcido, talvez pela primeira vez, enxergar um rosto. O seu.
+                </p>
+                <p>
+                    Não oferecemos respostas. Oferecemos o espelho quebrado. Cabe a você juntar os cacos e, no reflexo distorcido, talvez pela primeira vez, enxergar um rosto. <strong>O seu.</strong>
                 </p>
             </section>
 
             <div class="sections">
                 <div class="section-card">
                     <h3>Filosofia</h3>
-                    <p>Exploramos pensamentos alternativos, pois o importante não é o destino e sim a viagem que fazemos até chegar lá</p>
-                    <a href="artigos.html"><button class="cta-button">Ver Artigos</button></a>
+                    <p>Exploramos pensamentos alternativos, pois o importante não é o destino e sim a viagem que fazemos até chegar lá.</p>
+                    <a href="#"><button class="cta-button">Ver Artigos</button></a>
                 </div>
 
                 <div class="section-card">
                     <h3>Matemática</h3>
-                    <p>Mostramos que a matemática está presente nos mais diversos campos de nossas vidas</p>
-                    <a href="artigos.html"><button class="cta-button">Ver Artigos</button></a>
+                    <p>Mostramos que a matemática está presente nos mais diversos campos de nossas vidas, do caos urbano à estatística da sobrevivência.</p>
+                    <a href="#"><button class="cta-button">Ver Artigos</button></a>
                 </div>
             </div>
         </main>
