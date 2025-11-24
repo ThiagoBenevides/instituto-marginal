@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Teologia do Desamparo | Manifesto Marginal</title>
+    <style>
+        /* --- SEU CSS BASE (Mantido Intacto) --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #ff0055; /* Rosa Punk */
+            --accent-secondary: #00ffaa; /* Verde Terminal */
+            --border-color: #333;
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            min-height: 100vh;
+            background-color: #111;
+        }
+
+        /* HEADER & NAV (Reutilizados) */
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+            border-bottom: 2px solid var(--text-color);
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: var(--text-color);
+            text-shadow: 2px 2px 0px var(--accent-color);
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(17, 17, 17, 0.95);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        .nav-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-color);
+            text-decoration: line-through;
+        }
+
+        /* --- CSS ESPECÍFICO DO ARTIGO --- */
+        
+        .article-content {
+            padding: 0 10px;
+            max-width: 650px; /* Limita largura para leitura confortável */
+            margin: 0 auto;
+        }
+
+        .article-meta {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 40px;
+            font-family: monospace;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 20px;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            color: var(--accent-secondary);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: inline-block;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        /* O efeito "Sagrado Riscado" */
+        .sacred-strike {
+            text-decoration: line-through;
+            text-decoration-thickness: 2px;
+            text-decoration-color: var(--accent-color); /* Risco Rosa */
+            color: #555; /* Texto cinza escuro para parecer apagado */
+            font-style: italic;
+        }
+
+        /* Bloco de citação "Marginal" */
+        .marginal-quote {
+            background: rgba(20, 20, 20, 0.8);
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #ccc;
+        }
+        .marginal-quote cite {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--accent-secondary);
+            font-style: normal;
+            text-transform: uppercase;
+        }
+
+        .highlight {
+            color: var(--text-color);
+            background-color: rgba(255, 0, 85, 0.1); /* Fundo rosa sutil */
+            padding: 0 5px;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin: 60px auto 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            border: 1px solid var(--text-color);
+            padding: 10px 20px;
+            width: fit-content;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        @media (max-width: 600px) {
+            .logo { font-size: 1.8rem; }
+            .container { border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">Manifesto Marginal</h1>
+            <p class="subtitle">A Verdade Fede a Humanidade</p>
+        </header>
+
+        <nav class="nav">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="#" class="nav-link active">Artigos</a>
+                <a href="#" class="nav-link">Contato</a>
+            </div>
+        </nav>
+
+        <main class="main-content article-content">
+            
+            <div class="article-meta">
+                DATA: HOJE // LOCAL: RUA // STATUS: DESAMPARADO
+            </div>
+
+            <h1 style="font-size: 2rem; margin-bottom: 20px; line-height:1.2; text-transform:uppercase;">
+                A Teologia do Desamparo: <span style="color:var(--accent-color)">Quando o Céu é de Concreto</span>
+            </h1>
+
+            <p>Dizem que Deus está em toda parte. Quem diz isso nunca tentou dormir na Praça da Sé ou sob as marquises de Curitiba em julho. Existe uma fronteira invisível, mas física, que separa o sagrado do profano. E essa fronteira não é a porta da igreja; é a porta de casa.</p>
+
+            <p>Quando você perde a chave, você não perde apenas um teto. Você perde a dignidade de ser ouvido pelo divino. A rua é o lugar onde a onipresença de Deus falha.</p>
+
+            <h2>A Mentira da Cidade de Deus</h2>
+
+            <div class="marginal-quote">
+                <span class="sacred-strike">"Fizeste-nos para Ti e inquieto está o nosso coração enquanto não repousa em Ti."</span>
+                <cite>— Agostinho de Hipona (Refutado pelo asfalto)</cite>
+            </div>
+
+            <p>Agostinho escreveu isso com um teto sobre a cabeça. Na rua, a inquietação não é metafísica; é biológica. O coração não está inquieto por falta de graça, está inquieto por excesso de adrenalina e cortisol, o medo constante do chute, do fogo, da polícia, do outro.</p>
+
+            <p>A rua é a <strong>Cidade dos Homens</strong> em sua versão não editada, crua. Aqui, o amor ao próximo se dissolve na necessidade imediata da sobrevivência. Se eu dividir meu pão, eu morro. A caridade é um luxo de quem tem despensa cheia. Na sarjeta, o mal não é a "ausência do bem", o mal é uma presença física, sólida, com cheiro de urina e gosto de ferro.</p>
+
+            <h2>O Temor e o Tremor (de Frio)</h2>
+
+            <p>Kierkegaard falava do "Salto de Fé". Ele descrevia a angústia de Abraão, o silêncio aterrorizante de Deus. Para o dinamarquês, a fé começa onde a razão termina, no absurdo.</p>
+
+            <p>Nós vivemos no absurdo, mas sem a fé. O morador de rua é um "Cavaleiro da Resignação" forçado. Nós vivemos o <span class="highlight">Temor e Tremor</span>, mas não diante do divino. O tremor é a hipotermia. O temor é a violência gratuita da madrugada.</p>
+
+            <p>Kierkegaard dizia que a angústia é a vertigem da liberdade. Ele estava certo, mas da pior forma possível. Na rua, somos condenados a uma liberdade absoluta — sem horários, sem patrão, sem boletos — e essa liberdade é um inferno. É o abismo olhando de volta.</p>
+
+            <h2>O Deus Absconditus</h2>
+
+            <p>Simone Weil dizia que a "desgraça" (<em>malheur</em>) é algo que destrói o "eu". A dor física contínua faz com que a alma se encolha até virar apenas um ponto de grito.</p>
+
+            <p>Nesse estado, Deus não é um pai. Deus é o <em>Deus Absconditus</em>, o Deus oculto. Para quem mora na rua, a liturgia é outra:</p>
+
+            <ul>
+                <li style="margin-bottom: 10px;">🔴 Nossa hóstia é o resto de comida na lixeira.</li>
+                <li style="margin-bottom: 10px;">🔴 Nosso vinho é a cachaça que queima a garganta para enganar o estômago.</li>
+                <li style="margin-bottom: 10px;">🔴 Nossa oração não pede salvação eterna, pede para não chover hoje à noite.</li>
+            </ul>
+
+            <p>A religião das ruas é o ateísmo prático. Se Deus existe, Ele mora em coberturas, protegido por portaria 24 horas. Aqui embaixo, estamos por conta própria. A nossa fé é a teimosia de acordar amanhã, mesmo sem ter motivo algum para abrir os olhos.</p>
+
+            <a href="index.html" class="back-btn">&lt;&lt; VOLTAR AO ESGOTO</a>
+
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 Manifesto Marginal. Copyleft.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
