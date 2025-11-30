@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Química da Genialidade | Manifesto Marginal</title>
+    <style>
+        :root {
+            --bg-color: #050005;
+            --text-color: #e0e0e0;
+            --neon-green: #39ff14;
+            --neon-purple: #b026ff;
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Fundo Psicodélico Sutil */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(176, 38, 255, 0.1), transparent 60%);
+            animation: pulseBackground 10s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulseBackground {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.5); opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid var(--neon-purple);
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(176, 38, 255, 0.3);
+            background: rgba(10, 0, 10, 0.9);
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: var(--neon-green);
+            text-shadow: 2px 2px 0px var(--neon-purple);
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            color: var(--neon-purple);
+            border-bottom: 2px dashed var(--neon-green);
+            display: inline-block;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        p { margin-bottom: 20px; font-size: 1.1rem; text-align: justify; }
+
+        /* Efeito Glitch no texto importante */
+        .glitch-text {
+            color: #fff;
+            background: var(--neon-purple);
+            padding: 2px 5px;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-text:hover {
+            animation: glitch-anim 0.3s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .quote-box {
+            border-left: 5px solid var(--neon-green);
+            padding: 20px;
+            margin: 30px 0;
+            background: rgba(57, 255, 20, 0.05);
+            font-style: italic;
+            color: #ccc;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 50px;
+            color: var(--neon-green);
+            text-decoration: none;
+            border: 1px solid var(--neon-green);
+            padding: 10px 20px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .back-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .container { border: none; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>A Química da Genialidade Suja</h1>
+        <p style="color: var(--neon-purple); font-weight: bold;">// Onde a Razão Encontra o Delírio</p>
+
+        <p>A escola nos vendeu a imagem do gênio como um monge. Um homem sério, bebendo chá e tendo ideias brilhantes. Isso é uma mentira higienista. A verdadeira história da inovação humana cheira a fumaça e a álcool barato.</p>
+
+        <p>A mente humana é uma prisão de segurança máxima, e às vezes, para enxergar o universo, é preciso <span class="glitch-text">dinamitar as paredes</span>.</p>
+
+        <h2>Feynman no Bordel</h2>
+        <p>Richard Feynman, o homem que redesenhou a física quântica, não encontrou a verdade rezando em uma capela. Ele a encontrou desenhando diagramas em guardanapos, cercado por dançarinas de strip-tease.</p>
+        
+        <p>Feynman sabia de um segredo sujo: <strong>a pureza esteriliza</strong>. O silêncio da biblioteca é o silêncio do cemitério. Para entender a vibração das partículas, ele precisava estar onde a vida vibrava na frequência mais baixa e carnal. Enquanto a academia torcia o nariz, ele ganhava um Nobel com o cheiro da noite impregnado no casaco.</p>
+
+        <h2>O Combustível do Infinito</h2>
+        <p>Não vamos citar nomes, a lei dos homens é covarde. Mas olhem para a história da matemática. Paul Erdős dizia que um matemático é uma máquina de transformar café em teoremas. Mas sabemos que a "máquina" rodava com aditivos muito mais potentes.</p>
+
+        <div class="quote-box">
+            "Se as portas da percepção fossem limpas, tudo apareceria ao homem como realmente é: infinito." 
+            <br><span style="color: var(--neon-green); font-size: 0.8rem;">— William Blake / Aldous Huxley</span>
+        </div>
+
+        <p>O cérebro é uma válvula redutora. Ele serve para bloquear a realidade. Para ver a geometria fractal do universo, às vezes é necessário travar a válvula. É necessário ingerir a chave que destranca o abismo.</p>
+
+        <h2>Apolo vs. Dionísio</h2>
+        <p>A nossa cultura é viciada em Apolo — o deus da ordem e da sobriedade chata. Mas a criação marginal pertence a <strong>Dionísio</strong> — o deus do transe e da loucura.</p>
+        
+        <p>A mente sóbria é boa para pagar boletos. Mas para criar, para romper a barreira do impossível, é preciso estar disposto a se perder. Eles chamam de "vício". Nós chamamos de pesquisa de campo.</p>
+
+        <a href="index.html" class="back-btn">Voltar à Sobriedade Chata</a>
+    </div>
+
+</body>
+</html>
