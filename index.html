@@ -1,332 +1,525 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instituto de Pesquisas Marginais</title>
-    <style>
-        /* RESET & VARIÁVEIS */
-        :root {
-            --bg-color: #0a0a0a;
-            --text-color: #e0e0e0;
-            --accent-color: #ff0055; /* Rosa Punk */
-            --accent-secondary: #00ffaa; /* Verde Terminal */
-            --border-color: #333;
-            --font-main: 'Courier New', Courier, monospace;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 2px, 3px 100%;
-        }
-
-        /* LAYOUT */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
-            min-height: 100vh;
-            background-color: #111;
-        }
-
-        /* DECORAÇÕES */
-        .punk-decoration {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .punk-decoration:nth-child(1) { top: 20px; left: -15px; transform: rotate(-15deg); }
-        .punk-decoration:nth-child(2) { top: 100px; right: 20px; font-size: 3rem; animation: flicker 2s infinite; }
-        .punk-decoration:nth-child(3) { bottom: 20px; left: 20px; }
-
-        @keyframes flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 0.9; }
-            20%, 24%, 55% { opacity: 0.2; }
-        }
-
-        /* HEADER */
-        .header {
-            text-align: center;
-            padding: 60px 0 40px;
-            border-bottom: 2px solid var(--text-color);
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            font-weight: 900;
-            letter-spacing: -2px;
-            color: var(--text-color);
-            text-shadow: 2px 2px 0px var(--accent-color);
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            color: var(--accent-secondary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* NAV */
-        .nav {
-            position: sticky;
-            top: 0;
-            background: rgba(17, 17, 17, 0.95);
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
-            z-index: 100;
-            backdrop-filter: blur(5px);
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-color);
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 1.1rem;
-            position: relative;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-color);
-            text-decoration: line-through;
-        }
-
-        .nav-link::before {
-            content: '[';
-            margin-right: 5px;
-            color: var(--accent-secondary);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .nav-link::after {
-            content: ']';
-            margin-left: 5px;
-            color: var(--accent-secondary);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .nav-link:hover::before, .nav-link:hover::after {
-            opacity: 1;
-        }
-
-        /* MAIN CONTENT */
-        .manifesto {
-            padding: 40px 20px;
-            text-align: justify;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            margin: 40px 0 20px;
-            border-left: 5px solid var(--accent-color);
-            padding-left: 15px;
-            color: #fff;
-        }
-
-        p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-        }
-
-        /* CARDS */
-        .sections {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .section-card {
-            border: 1px solid var(--text-color);
-            padding: 25px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            background: #1a1a1a;
-        }
-
-        .section-card:hover {
-            transform: translate(-5px, -5px);
-            box-shadow: 5px 5px 0px var(--accent-secondary);
-        }
-
-        .section-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 10px;
-        }
-
-        /* BUTTONS */
-        .cta-button {
-            background: transparent;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 10px 20px;
-            font-family: var(--font-main);
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 15px;
-            width: 100%;
-            transition: all 0.3s;
-        }
-
-        .cta-button:hover {
-            background: var(--accent-color);
-            color: #000;
-        }
-
-        /* FOOTER */
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 50px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            opacity: 0.6;
-        }
-
-        /* RESPONSIVO */
-        @media (max-width: 600px) {
-            .sections {
-                grid-template-columns: 1fr;
-            }
-            .logo {
-                font-size: 1.8rem;
-            }
-            .container {
-                border: none;
-            }
-        }
-        
-        /* SELEÇÃO DE TEXTO */
-        ::selection {
-            background: var(--accent-secondary);
-            color: #000;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Decorações soltas -->
-        <div class="punk-decoration">⚡</div>
-        <div class="punk-decoration">🔥</div>
-        <div class="punk-decoration">💀</div>
-        
-        <header class="header">
-            <h1 class="logo">Instituto de Pesquisas Marginais</h1>
-            <p class="subtitle">Ciência Alternativa • Pensamento Rebelde</p>
-        </header>
-
-        <nav class="nav">
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Início</a>
-                <a href="artigos.html" class="nav-link">Artigos</a>
-                <a href="#manifesto" class="nav-link">Manifesto</a>
-            </div>
-        </nav>
-
-        <main class="main-content">
-            <section class="manifesto" id="manifesto">
-                <h2>Manifesto Marginal</h2>
-                <p>
-                    Nós rejeitamos o conhecimento pasteurizado, criado em estufa, a teoria que nunca sentiu o frio da madrugada. Rejeitamos a pesquisa que observa a vida através de um vidro blindado, que cataloga a dor em planilhas e transforma o grito em dados percentuais. A academia construiu suas torres para não ter que olhar para baixo. Nós nascemos do chão, e é para o chão que nosso olhar se volta. A verdade deles é asséptica; a nossa fede a humanidade.
-                </p>
-                <p>
-                    Eles buscam o universal; nós nos afogamos no particular. Eles buscam a lei que rege o todo; nós buscamos a exceção que prova que o todo é uma mentira. A verdade não está na média, mas nos extremos. Não está no centro da curva de Gauss, mas nas margens esquecidas onde a estatística se desfaz em um rosto, em um nome, em uma história humana.
-                </p>
-
-                <h2>A afirmação da Existência Bruta</h2>
-                <p>
-                    Nossa universidade é a esquina sob a luz trêmula do posto. Nossos livros são as pichações nos muros, as conversas ouvidas no último ônibus, os objetos abandonados na calçada. Nossa filosofia não nasce da contemplação serena, mas da náusea que precede toda grande verdade — a náusea de encarar a liberdade atroz do homem despojado de tudo.
-                </p>
-                <p>
-                    Não buscamos a essência das coisas; nós testemunhamos a brutalidade de sua existência. A cadeira não é o ideal platônico de 'cadeira'; é esta madeira lascada, este prego enferrujado, este objeto que sustenta o peso de um corpo cansado, aqui e agora. O ser humano não é um conceito, é este corpo que treme de frio, que anseia, que sangra, que improvisa para sobreviver a mais um dia. A existência precede a essência, e a existência, meus caros, é suja, caótica e gloriosamente imperfeita.
-                </p>
-
-                <h2>O método à deriva</h2>
-                <p>
-                    Nosso método é a falta de método. É a entrega. Caminhar é o nosso método. Olhar é o nosso rigor. Escutar é o nosso instrumento. Nós não vamos a campo com perguntas prontas; nós deixamos que o campo nos faça em pedaços. A verdadeira pesquisa marginal não busca respostas, ela se deixa contaminar pelas perguntas que emanam do asfalto.
-                </p>
-                <p>
-                    Somos condenados a ser livres, e por isso nossa pesquisa é livre. Sem hipóteses prévias, sem grupos de controle. O único grupo de controle é a nossa própria covardia, a vontade de desviar o olhar, de voltar para o conforto de uma conclusão arrumada. A nossa ética é a da proximidade: não se pode falar da fome sem ter o estômago vazio. Não se pode falar do desespero sem ter olhado o abismo nos olhos.
-                </p>
-
-                <h2>O objeto é o resto</h2>
-                <p>
-                    <strong>O que nós pesquisamos?</strong><br>
-                    Pesquisamos a lógica do viciado e a fé do desesperado.<br>
-                    Pesquisamos a teologia do mendigo que conversa com os deuses na sarjeta.<br>
-                    Pesquisamos a geometria da gambiarra, a arquitetura da ocupação.<br>
-                    Pesquisamos a beleza na ferrugem, a poesia no lixo, a esperança no improvável.<br>
-                    Pesquisamos o silêncio que se instala depois que a autoridade vira as costas.<br>
-                    Pesquisamos as hierarquias invisíveis da rua, os códigos de honra que não estão escritos em lei nenhuma.
-                </p>
-                <p>
-                    Nosso campo de estudo é o <em>Absurdo</em>: o conflito eterno entre o grito humano por sentido e o silêncio gelado do universo. Encontramos esse Absurdo não nos grandes tratados, mas no homem que varre a mesma calçada todos os dias, na mulher que cria um jardim em uma lata de tinta, no riso que explode no meio do velório.
-                </p>
-
-                <h2>O chamado ao desconforto</h2>
-                <p>
-                    Este não é um convite para se juntar a nós, pois não há um 'nós' a que se juntar. Não há instituição, não há verba, não há diploma. Este é um chamado para que você reconheça sua própria condição marginal. É um chamado para que você inicie sua própria pesquisa na periferia da sua existência.
-                </p>
-                <p>
-                    Olhe para o que você evita. Escute o que te incomoda. Toque naquilo que te causa repulsa. É ali, nesse território de descontento, que a verdade nua se esconde.
-                </p>
-                <p>
-                    Não oferecemos respostas. Oferecemos o espelho quebrado. Cabe a você juntar os cacos e, no reflexo distorcido, talvez pela primeira vez, enxergar um rosto. <strong>O seu.</strong>
-                </p>
-            </section>
-
-            <div class="sections">
-                <div class="section-card">
-                    <h3>Filosofia</h3>
-                    <p>Exploramos pensamentos alternativos, pois o importante não é o destino e sim a viagem que fazemos até chegar lá.</p>
-                    <a href="#"><button class="cta-button">Ver Artigos</button></a>
-                </div>
-
-                <div class="section-card">
-                    <h3>Matemática</h3>
-                    <p>Mostramos que a matemática está presente nos mais diversos campos de nossas vidas, do caos urbano à estatística da sobrevivência.</p>
-                    <a href="#"><button class="cta-button">Ver Artigos</button></a>
-                </div>
-            </div>
-        </main>
-
-        <footer class="footer">
-            <p>Instituto de Pesquisas Marginais © 2025 - Resistência Intelectual</p>
-        </footer>
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THIAGO BENEVIDES // DADOS &amp; ESCOMBROS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-family: 'Fira Code', monospace;
+    }
+    
+    ::selection {
+      background: #FF2E2E;
+      color: #000000;
+    }
+    
+    .glitch {
+      position: relative;
+      animation: glitch-skew 4s infinite linear alternate-reverse;
+    }
+    
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 #FF2E2E;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim 5s infinite linear alternate-reverse;
+    }
+    
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 #00FFFF, 2px 2px #FF2E2E;
+      animation: glitch-anim2 3s infinite linear alternate-reverse;
+    }
+    
+    @keyframes glitch-anim {
+      0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
+      5% { clip: rect(70px, 9999px, 71px, 0); transform: skew(0.34deg); }
+      10% { clip: rect(29px, 9999px, 24px, 0); transform: skew(0.98deg); }
+      15% { clip: rect(73px, 9999px, 15px, 0); transform: skew(0.22deg); }
+      20% { clip: rect(20px, 9999px, 67px, 0); transform: skew(0.67deg); }
+      25% { clip: rect(91px, 9999px, 47px, 0); transform: skew(0.11deg); }
+      30% { clip: rect(42px, 9999px, 88px, 0); transform: skew(0.45deg); }
+      35% { clip: rect(56px, 9999px, 32px, 0); transform: skew(0.78deg); }
+      40% { clip: rect(12px, 9999px, 99px, 0); transform: skew(0.23deg); }
+      45% { clip: rect(84px, 9999px, 19px, 0); transform: skew(0.56deg); }
+      50% { clip: rect(37px, 9999px, 76px, 0); transform: skew(0.89deg); }
+      55% { clip: rect(63px, 9999px, 41px, 0); transform: skew(0.12deg); }
+      60% { clip: rect(8px, 9999px, 58px, 0); transform: skew(0.67deg); }
+      65% { clip: rect(95px, 9999px, 25px, 0); transform: skew(0.34deg); }
+      70% { clip: rect(48px, 9999px, 82px, 0); transform: skew(0.91deg); }
+      75% { clip: rect(21px, 9999px, 64px, 0); transform: skew(0.45deg); }
+      80% { clip: rect(77px, 9999px, 38px, 0); transform: skew(0.78deg); }
+      85% { clip: rect(33px, 9999px, 91px, 0); transform: skew(0.23deg); }
+      90% { clip: rect(59px, 9999px, 12px, 0); transform: skew(0.56deg); }
+      95% { clip: rect(86px, 9999px, 53px, 0); transform: skew(0.89deg); }
+      100% { clip: rect(14px, 9999px, 79px, 0); transform: skew(0.12deg); }
+    }
+    
+    @keyframes glitch-anim2 {
+      0% { clip: rect(65px, 9999px, 100px, 0); transform: skew(0.6deg); }
+      5% { clip: rect(25px, 9999px, 45px, 0); transform: skew(0.12deg); }
+      10% { clip: rect(80px, 9999px, 20px, 0); transform: skew(0.78deg); }
+      15% { clip: rect(10px, 9999px, 85px, 0); transform: skew(0.34deg); }
+      20% { clip: rect(55px, 9999px, 60px, 0); transform: skew(0.91deg); }
+      25% { clip: rect(35px, 9999px, 95px, 0); transform: skew(0.45deg); }
+      30% { clip: rect(90px, 9999px, 30px, 0); transform: skew(0.67deg); }
+      35% { clip: rect(15px, 9999px, 75px, 0); transform: skew(0.23deg); }
+      40% { clip: rect(70px, 9999px, 40px, 0); transform: skew(0.89deg); }
+      45% { clip: rect(40px, 9999px, 90px, 0); transform: skew(0.56deg); }
+      50% { clip: rect(85px, 9999px, 15px, 0); transform: skew(0.12deg); }
+      55% { clip: rect(20px, 9999px, 70px, 0); transform: skew(0.78deg); }
+      60% { clip: rect(60px, 9999px, 50px, 0); transform: skew(0.34deg); }
+      65% { clip: rect(5px, 9999px, 80px, 0); transform: skew(0.67deg); }
+      70% { clip: rect(75px, 9999px, 25px, 0); transform: skew(0.91deg); }
+      75% { clip: rect(30px, 9999px, 65px, 0); transform: skew(0.45deg); }
+      80% { clip: rect(95px, 9999px, 35px, 0); transform: skew(0.23deg); }
+      85% { clip: rect(50px, 9999px, 55px, 0); transform: skew(0.89deg); }
+      90% { clip: rect(45px, 9999px, 10px, 0); transform: skew(0.56deg); }
+      95% { clip: rect(100px, 9999px, 5px, 0); transform: skew(0.12deg); }
+      100% { clip: rect(0px, 9999px, 100px, 0); transform: skew(0.78deg); }
+    }
+    
+    @keyframes glitch-skew {
+      0% { transform: skew(0deg); }
+      10% { transform: skew(0deg); }
+      11% { transform: skew(2deg); }
+      12% { transform: skew(0deg); }
+      50% { transform: skew(0deg); }
+      51% { transform: skew(-1deg); }
+      52% { transform: skew(0deg); }
+      100% { transform: skew(0deg); }
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    
+    .cursor-blink::after {
+      content: '_';
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        transparent 50%,
+        rgba(255, 46, 46, 0.02) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    .tag {
+      border: 2px solid currentColor;
+      transition: all 0.05s ease;
+    }
+    
+    .tag:hover {
+      background: #FF2E2E;
+      color: #000000;
+      border-color: #FF2E2E;
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.05s ease;
+    }
+    
+    .nav-link::before {
+      content: '>';
+      position: absolute;
+      left: -1rem;
+      opacity: 0;
+      transition: all 0.05s ease;
+    }
+    
+    .nav-link:hover::before {
+      opacity: 1;
+    }
+    
+    .nav-link:hover {
+      background: #FF2E2E;
+      color: #000000;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    
+    .article-block {
+      border: 2px solid #333333;
+      transition: all 0.05s ease;
+    }
+    
+    .article-block:hover {
+      border-color: #FF2E2E;
+      background: #0A0A0A;
+    }
+    
+    .article-block:hover .article-title {
+      color: #FF2E2E;
+    }
+    
+    pre {
+      border: 2px solid #FF2E2E;
+      background: #0A0A0A !important;
+    }
+    
+    code {
+      font-family: 'Fira Code', monospace !important;
+    }
+    
+    .code-keyword { color: #FF2E2E; }
+    .code-string { color: #FF6B35; }
+    .code-comment { color: #666666; }
+    .code-function { color: #E0E0E0; }
+    .code-number { color: #FF9F1C; }
+    
+    .grid-line-v {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #1a1a1a;
+    }
+    
+    .grid-line-h {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #1a1a1a;
+    }
+    
+    .section-divider {
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        #FF2E2E,
+        #FF2E2E 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    }
+    
+    .footer-grid {
+      background-image: 
+        linear-gradient(#1a1a1a 1px, transparent 1px),
+        linear-gradient(90deg, #1a1a1a 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-black text-gray-200 overflow-auto"><!-- Scanline overlay -->
+  <div class="scanline"></div>
+  <div class="min-h-full w-full relative"><!-- Background grid lines -->
+   <div class="grid-line-v" style="left: 10%;"></div>
+   <div class="grid-line-v" style="left: 90%;"></div><!-- Navigation -->
+   <nav class="border-b-2 border-gray-800 py-4">
+    <div class="max-w-6xl mx-auto px-4 flex flex-wrap justify-between items-center gap-4">
+     <div class="text-xs text-gray-600"><span class="text-red-500">[</span>SYS<span class="text-red-500">]</span> CONNECTED
+     </div>
+     <div class="flex flex-wrap gap-6 text-sm uppercase tracking-wider"><a href="#blog" id="nav-blog" class="nav-link">BLOG</a> <a href="#projetos" id="nav-projects" class="nav-link">PROJETOS</a> <a href="#sobre" id="nav-about" class="nav-link">SOBRE</a> <a href="https://github.com" target="_blank" rel="noopener noreferrer" id="nav-github" class="nav-link">GITHUB</a>
+     </div>
+     <div class="text-xs text-gray-600 hidden sm:block">
+      v2.0.4<span class="cursor-blink"></span>
+     </div>
     </div>
-</body>
+   </nav><!-- Hero Section -->
+   <header class="border-b-4 border-gray-800 py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+     <div class="border-l-4 border-red-500 pl-6">
+      <h1 id="hero-title" class="glitch text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight leading-none mb-6" data-text="THIAGO SILVA // DADOS &amp; FILOSOFIA">THIAGO SILVA // DADOS &amp; FILOSOFIA</h1>
+      <p id="hero-subtitle" class="text-lg md:text-xl text-gray-400 uppercase tracking-widest">Análise crítica em um mundo algorítmico.</p>
+      <div class="mt-8 text-xs text-gray-600 font-mono"><span class="text-red-500">$</span> cat /usr/share/mission.txt<br><span class="text-gray-400">&gt; Desconstruindo sistemas. Construindo conhecimento.</span>
+      </div>
+     </div>
+    </div>
+   </header><!-- Section Divider -->
+   <div class="section-divider"></div><!-- Main Content Grid -->
+   <main class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8"><!-- Articles Feed -->
+     <section id="blog" class="lg:col-span-2">
+      <div class="flex items-center gap-4 mb-8">
+       <h2 class="text-2xl uppercase tracking-wider font-bold"><span class="text-red-500">//</span> TRANSMISSÕES RECENTES</h2>
+       <div class="flex-1 h-px bg-gray-800"></div>
+      </div><!-- Article 1 -->
+      <article class="article-block p-6 mb-4">
+       <div class="flex flex-wrap items-start justify-between gap-2 mb-3"><span class="tag text-xs px-2 py-1 text-red-500">[FILOSOFIA]</span> <time class="text-xs text-gray-600">2024-12-15_23:47:00</time>
+       </div>
+       <h3 class="article-title text-xl md:text-2xl uppercase font-bold mb-3 cursor-pointer hover:underline">A MORTE DO AUTOR NA ERA DO GPT: QUEM ESCREVE QUANDO NINGUÉM ESCREVE?</h3>
+       <p class="text-sm text-gray-400 leading-relaxed">Uma investigação sobre autoria, originalidade e a dissolução do sujeito criador em sistemas de linguagem generativa. Barthes estava certo, mas não sabia o quanto.</p>
+       <div class="mt-4 text-xs"><span class="text-gray-600">READ_TIME:</span> <span class="text-red-500">12min</span> <span class="text-gray-600 ml-4">COMPLEXITY:</span> <span class="text-red-500">████░░</span>
+       </div>
+      </article><!-- Article 2 -->
+      <article class="article-block p-6 mb-4">
+       <div class="flex flex-wrap items-start justify-between gap-2 mb-3"><span class="tag text-xs px-2 py-1 text-orange-500">[PYTHON]</span> <time class="text-xs text-gray-600">2024-12-08_14:22:00</time>
+       </div>
+       <h3 class="article-title text-xl md:text-2xl uppercase font-bold mb-3 cursor-pointer hover:underline">SCRAPING ÉTICO: EXTRAINDO DADOS SEM VENDER SUA ALMA</h3>
+       <p class="text-sm text-gray-400 leading-relaxed">Técnicas de web scraping responsável com Python, BeautifulSoup e respeito aos robots.txt. Porque nem todo dado precisa ser roubado.</p>
+       <div class="mt-4 text-xs"><span class="text-gray-600">READ_TIME:</span> <span class="text-red-500">8min</span> <span class="text-gray-600 ml-4">COMPLEXITY:</span> <span class="text-red-500">███░░░</span>
+       </div>
+      </article><!-- Article 3 -->
+      <article class="article-block p-6 mb-4">
+       <div class="flex flex-wrap items-start justify-between gap-2 mb-3"><span class="tag text-xs px-2 py-1 text-yellow-500">[ANÁLISE DE RISCO]</span> <time class="text-xs text-gray-600">2024-11-29_09:15:00</time>
+       </div>
+       <h3 class="article-title text-xl md:text-2xl uppercase font-bold mb-3 cursor-pointer hover:underline">O COLAPSO SILENCIOSO: MODELANDO RISCOS SISTÊMICOS EM REDES FINANCEIRAS</h3>
+       <p class="text-sm text-gray-400 leading-relaxed">Como a teoria dos grafos pode prever cascatas de falhas em sistemas bancários interconectados. Spoiler: estamos todos conectados ao mesmo nó frágil.</p>
+       <div class="mt-4 text-xs"><span class="text-gray-600">READ_TIME:</span> <span class="text-red-500">15min</span> <span class="text-gray-600 ml-4">COMPLEXITY:</span> <span class="text-red-500">█████░</span>
+       </div>
+      </article><!-- Article 4 -->
+      <article class="article-block p-6">
+       <div class="flex flex-wrap items-start justify-between gap-2 mb-3"><span class="tag text-xs px-2 py-1 text-cyan-500">[DADOS]</span> <time class="text-xs text-gray-600">2024-11-15_18:33:00</time>
+       </div>
+       <h3 class="article-title text-xl md:text-2xl uppercase font-bold mb-3 cursor-pointer hover:underline">PANDAS É O NOVO EXCEL (E ISSO NÃO É UM ELOGIO)</h3>
+       <p class="text-sm text-gray-400 leading-relaxed">Uma crítica afetuosa à dependência excessiva de DataFrames e um chamado à volta das estruturas de dados fundamentais.</p>
+       <div class="mt-4 text-xs"><span class="text-gray-600">READ_TIME:</span> <span class="text-red-500">6min</span> <span class="text-gray-600 ml-4">COMPLEXITY:</span> <span class="text-red-500">██░░░░</span>
+       </div>
+      </article>
+     </section><!-- Sidebar -->
+     <aside class="lg:col-span-1"><!-- Code Block Preview -->
+      <div class="mb-8">
+       <div class="flex items-center gap-4 mb-4">
+        <h2 class="text-lg uppercase tracking-wider font-bold"><span class="text-red-500">//</span> SNIPPET</h2>
+        <div class="flex-1 h-px bg-gray-800"></div>
+       </div>
+       <pre class="p-4 text-xs overflow-x-auto"><code><span class="code-comment"># caos_controlado.py</span>
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> entropy <span class="code-keyword">import</span> shannon
+
+<span class="code-keyword">def</span> <span class="code-function">medir_incerteza</span>(sistema):
+    <span class="code-string">"""
+    Quantifica o caos inerente
+    a qualquer sistema complexo.
+    """</span>
+    dados = sistema.observar()
+    entropia = shannon(dados)
+    
+    <span class="code-keyword">if</span> entropia &gt; <span class="code-number">0.9</span>:
+        <span class="code-keyword">return</span> <span class="code-string">"COLAPSO_IMINENTE"</span>
+    <span class="code-keyword">return</span> <span class="code-string">"ORDEM_TEMPORÁRIA"</span></code></pre>
+      </div><!-- Status Panel -->
+      <div class="border-2 border-gray-800 p-4 mb-8">
+       <div class="text-xs uppercase tracking-wider mb-4 text-gray-500"><span class="text-red-500">[</span>STATUS<span class="text-red-500">]</span>
+       </div>
+       <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-gray-500">ARTIGOS:</span> <span class="text-red-500">47</span>
+        </div>
+        <div class="flex justify-between"><span class="text-gray-500">PROJETOS:</span> <span class="text-red-500">12</span>
+        </div>
+        <div class="flex justify-between"><span class="text-gray-500">COMMITS:</span> <span class="text-red-500">1,247</span>
+        </div>
+        <div class="flex justify-between"><span class="text-gray-500">CAFÉ:</span> <span class="text-red-500">∞</span>
+        </div>
+       </div>
+      </div><!-- Tags Cloud -->
+      <div class="mb-8">
+       <div class="flex items-center gap-4 mb-4">
+        <h2 class="text-lg uppercase tracking-wider font-bold"><span class="text-red-500">//</span> TAGS</h2>
+        <div class="flex-1 h-px bg-gray-800"></div>
+       </div>
+       <div class="flex flex-wrap gap-2"><span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">PYTHON</span> <span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">FILOSOFIA</span> <span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">DADOS</span> <span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">RISCO</span> <span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">IA</span> <span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">ÉTICA</span> <span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">SISTEMAS</span> <span class="tag text-xs px-2 py-1 text-gray-400 cursor-pointer">CRÍTICA</span>
+       </div>
+      </div><!-- Terminal Quote -->
+      <div class="border-l-4 border-red-500 pl-4 py-2">
+       <p class="text-sm text-gray-400 italic">"Os dados não mentem, mas os que os interpretam frequentemente sim."</p>
+       <p class="text-xs text-gray-600 mt-2">— <span class="text-red-500">anon</span>, 2024</p>
+      </div>
+     </aside>
+    </div>
+   </main><!-- Section Divider -->
+   <div class="section-divider"></div><!-- Footer -->
+   <footer class="footer-grid border-t-2 border-gray-800 py-8">
+    <div class="max-w-6xl mx-auto px-4">
+     <div class="flex flex-wrap justify-between items-center gap-4 text-xs text-gray-600">
+      <div><span class="text-red-500">©</span> 2024 // TODOS OS DIREITOS RESERVADOS OU NÃO
+      </div>
+      <div class="flex gap-4"><span>BUILT WITH <span class="text-red-500">♦</span> AND PARANOIA</span>
+      </div>
+      <div><span class="text-gray-500">LAST_DEPLOY:</span> <span class="text-red-500" id="timestamp">2024-12-15</span>
+      </div>
+     </div>
+     <div class="mt-4 text-center text-xs text-gray-700"><span class="text-red-500">$</span> echo "A verdade é um bug, não uma feature."
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      hero_title: 'THIAGO SILVA // DADOS & FILOSOFIA',
+      hero_subtitle: 'Análise crítica em um mundo algorítmico.',
+      nav_blog: 'BLOG',
+      nav_projects: 'PROJETOS',
+      nav_about: 'SOBRE',
+      nav_github: 'GITHUB',
+      background_color: '#000000',
+      text_color: '#E0E0E0',
+      accent_color: '#FF2E2E',
+      secondary_color: '#1a1a1a',
+      muted_color: '#666666'
+    };
+
+    // Element references
+    const elements = {
+      heroTitle: document.getElementById('hero-title'),
+      heroSubtitle: document.getElementById('hero-subtitle'),
+      navBlog: document.getElementById('nav-blog'),
+      navProjects: document.getElementById('nav-projects'),
+      navAbout: document.getElementById('nav-about'),
+      navGithub: document.getElementById('nav-github')
+    };
+
+    // Update UI based on config
+    async function onConfigChange(config) {
+      // Update text content
+      const title = config.hero_title || defaultConfig.hero_title;
+      elements.heroTitle.textContent = title;
+      elements.heroTitle.setAttribute('data-text', title);
+      
+      elements.heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+      elements.navBlog.textContent = config.nav_blog || defaultConfig.nav_blog;
+      elements.navProjects.textContent = config.nav_projects || defaultConfig.nav_projects;
+      elements.navAbout.textContent = config.nav_about || defaultConfig.nav_about;
+      elements.navGithub.textContent = config.nav_github || defaultConfig.nav_github;
+
+      // Update colors
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+      const mutedColor = config.muted_color || defaultConfig.muted_color;
+
+      document.body.style.backgroundColor = bgColor;
+      document.body.style.color = textColor;
+      
+      // Update accent color CSS custom property for dynamic elements
+      document.documentElement.style.setProperty('--accent', accentColor);
+      
+      // Update styled elements
+      document.querySelectorAll('.text-red-500').forEach(el => {
+        el.style.color = accentColor;
+      });
+      
+      document.querySelectorAll('.border-red-500').forEach(el => {
+        el.style.borderColor = accentColor;
+      });
+      
+      document.querySelectorAll('.border-gray-800').forEach(el => {
+        el.style.borderColor = secondaryColor;
+      });
+      
+      document.querySelectorAll('.text-gray-600, .text-gray-500').forEach(el => {
+        el.style.color = mutedColor;
+      });
+    }
+
+    // Map config to capabilities for color/font editing
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              config.secondary_color = value;
+              window.elementSdk.setConfig({ secondary_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              window.elementSdk.setConfig({ accent_color: value });
+            }
+          },
+          {
+            get: () => config.muted_color || defaultConfig.muted_color,
+            set: (value) => {
+              config.muted_color = value;
+              window.elementSdk.setConfig({ muted_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    // Map config to edit panel values
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+        ['nav_blog', config.nav_blog || defaultConfig.nav_blog],
+        ['nav_projects', config.nav_projects || defaultConfig.nav_projects],
+        ['nav_about', config.nav_about || defaultConfig.nav_about],
+        ['nav_github', config.nav_github || defaultConfig.nav_github]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Update timestamp
+    document.getElementById('timestamp').textContent = new Date().toISOString().split('T')[0];
+
+    // Add hover sound effect simulation (visual feedback)
+    document.querySelectorAll('.nav-link, .article-block').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        el.style.transition = 'all 0.05s ease';
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bcf49a220644d30',t:'MTc2ODI0ODUyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
