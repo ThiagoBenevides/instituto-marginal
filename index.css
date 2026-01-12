@@ -1,0 +1,117 @@
+/* =========================
+   INDEX – FEED DE ARTIGOS
+   ========================= */
+
+/* layout geral */
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+/* header */
+.site-header {
+  margin-bottom: 4rem;
+  border-bottom: 2px solid #222;
+  padding-bottom: 2rem;
+}
+
+.site-title {
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  color: #FF2E2E;
+  text-transform: uppercase;
+}
+
+.site-subtitle {
+  margin-top: 1rem;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* feed */
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* bloco de artigo */
+.article-block {
+  display: block;
+  padding: 2rem;
+  border: 2px solid #333;
+  background: #050505;
+  text-decoration: none;
+  transition: all 0.08s ease;
+  position: relative;
+}
+
+.article-block:hover {
+  border-color: #FF2E2E;
+  background: #0A0A0A;
+  transform: translateX(4px);
+}
+
+/* efeito glitch leve no hover */
+.article-block:hover .article-title {
+  animation: glitch-text 0.25s steps(2, end);
+}
+
+/* meta */
+.article-meta {
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+/* título */
+.article-title {
+  font-size: 1.4rem;
+  color: #EAEAEA;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* resumo */
+.article-excerpt {
+  font-size: 0.95rem;
+  color: #AAA;
+  line-height: 1.6;
+}
+
+/* tags */
+.article-tags {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #444;
+  color: #FF2E2E;
+  text-transform: uppercase;
+}
+
+/* footer */
+.site-footer {
+  margin-top: 6rem;
+  padding-top: 2rem;
+  border-top: 2px solid #222;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+/* animação */
+@keyframes glitch-text {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 0); }
+  80% { transform: translate(1px, 1px); }
+  100% { transform: translate(0); }
+}
