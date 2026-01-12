@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A MORTE DO AUTOR NA ERA DO GPT - Thiago Silva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    
+    ::selection {
+      background: #FF2E2E;
+      color: #000000;
+    }
+    
+    /* Glitch effect for title */
+    .glitch {
+      position: relative;
+      animation: glitch-skew 5s infinite linear alternate-reverse;
+    }
+    
+    @keyframes glitch-skew {
+      0% { transform: skew(0deg); }
+      10% { transform: skew(0deg); }
+      11% { transform: skew(1deg); }
+      12% { transform: skew(0deg); }
+      100% { transform: skew(0deg); }
+    }
+    
+    /* Back link hover effect */
+    .back-link {
+      transition: all 0.05s ease;
+      display: inline-block;
+    }
+    
+    .back-link::before {
+      content: '> ';
+      opacity: 0;
+      transition: opacity 0.05s ease;
+    }
+    
+    .back-link:hover::before {
+      opacity: 1;
+    }
+    
+    .back-link:hover {
+      background: #FF2E2E;
+      color: #000000;
+      padding: 0 0.5rem;
+    }
+    
+    /* Tag badges */
+    .tag-badge {
+      border: 2px solid currentColor;
+      transition: all 0.05s ease;
+      display: inline-block;
+    }
+    
+    .tag-badge:hover {
+      background: #FF2E2E;
+      color: #000000;
+      border-color: #FF2E2E;
+    }
+    
+    /* Article body typography */
+    .article-content {
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    
+    .article-content h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #FF2E2E;
+      padding-left: 1rem;
+    }
+    
+    .article-content h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #FF2E2E;
+    }
+    
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content ul, .article-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 2rem;
+    }
+    
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .article-content a {
+      color: #FF2E2E;
+      text-decoration: underline;
+      transition: all 0.05s ease;
+    }
+    
+    .article-content a:hover {
+      background: #FF2E2E;
+      color: #000000;
+      text-decoration: none;
+    }
+    
+    /* Blockquote styling */
+    .article-content blockquote {
+      border-left: 6px solid #FF2E2E;
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: #CCCCCC;
+      background: #0A0A0A;
+      padding: 1.5rem;
+    }
+    
+    .article-content blockquote::before {
+      content: '"';
+      font-size: 3rem;
+      color: #FF2E2E;
+      line-height: 0;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    
+    /* Code blocks */
+    .article-content pre {
+      background: #1A1A1A !important;
+      border: 2px solid #333333;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 2rem 0;
+      position: relative;
+      border-left: 4px solid #FF2E2E;
+    }
+    
+    .article-content code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+      font-size: 0.9rem;
+    }
+    
+    .article-content pre code {
+      display: block;
+      counter-reset: line;
+    }
+    
+    .article-content pre code .line {
+      display: block;
+      padding-left: 3.5rem;
+      position: relative;
+    }
+    
+    .article-content pre code .line::before {
+      counter-increment: line;
+      content: counter(line);
+      position: absolute;
+      left: 0;
+      width: 2.5rem;
+      text-align: right;
+      color: #666666;
+      border-right: 1px solid #333333;
+      padding-right: 0.75rem;
+    }
+    
+    .article-content :not(pre) > code {
+      background: #1A1A1A;
+      color: #FF2E2E;
+      padding: 0.2rem 0.4rem;
+      border: 1px solid #333333;
+    }
+    
+    /* Syntax highlighting colors */
+    .code-keyword { color: #FF2E2E; font-weight: 700; }
+    .code-string { color: #FF9F1C; }
+    .code-comment { color: #666666; font-style: italic; }
+    .code-function { color: #E0E0E0; font-weight: 700; }
+    .code-number { color: #FFD700; }
+    .code-operator { color: #FF2E2E; }
+    
+    /* Math equation support */
+    .math-equation {
+      font-family: 'Latin Modern Math', 'STIX Two Math', serif;
+      font-size: 1.1rem;
+      text-align: center;
+      margin: 2rem 0;
+      padding: 1rem;
+      background: #0A0A0A;
+      border-top: 1px solid #333333;
+      border-bottom: 1px solid #333333;
+    }
+    
+    /* Notebook CTA button */
+    .notebook-cta {
+      border: 3px solid #FF2E2E;
+      background: transparent;
+      color: #FF2E2E;
+      transition: all 0.05s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+    
+    .notebook-cta:hover {
+      background: #FF2E2E;
+      color: #000000;
+      transform: translateX(4px);
+    }
+    
+    /* Navigation arrows */
+    .nav-arrow {
+      border: 2px solid #333333;
+      transition: all 0.05s ease;
+    }
+    
+    .nav-arrow:hover {
+      border-color: #FF2E2E;
+      background: #0A0A0A;
+    }
+    
+    .nav-arrow:hover .arrow-label {
+      color: #FF2E2E;
+    }
+    
+    /* Scanline effect */
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+    
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        transparent 50%,
+        rgba(255, 46, 46, 0.02) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    /* Reading progress bar */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: #FF2E2E;
+      width: 0%;
+      z-index: 10000;
+      transition: width 0.1s ease;
+    }
+    
+    /* Metadata box */
+    .metadata-box {
+      border: 2px solid #333333;
+      background: #0A0A0A;
+    }
+    
+    /* Table of contents */
+    .toc-link {
+      transition: all 0.05s ease;
+      border-left: 2px solid transparent;
+    }
+    
+    .toc-link:hover {
+      border-left-color: #FF2E2E;
+      padding-left: 0.5rem;
+      color: #FF2E2E;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-black text-gray-200 overflow-auto"><!-- Scanline overlay -->
+  <div class="scanline"></div><!-- Reading progress bar -->
+  <div class="reading-progress" id="reading-progress"></div>
+  <div class="min-h-full w-full"><!-- Breadcrumb Navigation -->
+   <nav class="border-b-2 border-gray-800 py-4 px-4">
+    <div class="max-w-4xl mx-auto"><a href="#" id="back-link" class="back-link text-sm uppercase tracking-wider text-gray-400 hover:text-black"> <span class="text-red-500">$</span> cd .. <span class="text-gray-600">//</span> VOLTAR AO ÍNDICE </a>
+    </div>
+   </nav><!-- Article Header -->
+   <header class="border-b-4 border-gray-800 py-12 md:py-16 px-4">
+    <div class="max-w-4xl mx-auto"><!-- Title -->
+     <h1 id="article-title" class="glitch text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight mb-4">A MORTE DO AUTOR NA ERA DO GPT</h1><!-- Subtitle -->
+     <p id="article-subtitle" class="text-lg md:text-xl text-gray-400 uppercase tracking-wide mb-8">Quem escreve quando ninguém escreve?</p><!-- Metadata Box -->
+     <div class="metadata-box p-4 md:p-6">
+      <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm">
+       <div><span class="text-gray-600">AUTOR:</span> <span id="article-author" class="text-red-500 ml-2">THIAGO SILVA</span>
+       </div>
+       <div class="hidden sm:block text-gray-800">
+        |
+       </div>
+       <div><span class="text-gray-600">DATA:</span> <time class="text-gray-400 ml-2">2024-12-15_23:47:00</time>
+       </div>
+       <div class="hidden sm:block text-gray-800">
+        |
+       </div>
+       <div><span class="text-gray-600">READ_TIME:</span> <span class="text-red-500 ml-2">12min</span>
+       </div>
+      </div><!-- Tags -->
+      <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-800"><span class="text-gray-600 text-xs uppercase mr-2">TAGS:</span> <span class="tag-badge text-xs px-2 py-1 text-red-500 cursor-pointer">[FILOSOFIA]</span> <span class="tag-badge text-xs px-2 py-1 text-orange-500 cursor-pointer">[IA]</span> <span class="tag-badge text-xs px-2 py-1 text-yellow-500 cursor-pointer">[CRÍTICA]</span> <span class="tag-badge text-xs px-2 py-1 text-cyan-500 cursor-pointer">[TEORIA]</span>
+      </div>
+     </div>
+    </div>
+   </header><!-- Main Article Content -->
+   <main class="py-12 px-4">
+    <div class="max-w-4xl mx-auto"><!-- Notebook CTA (if applicable) -->
+     <div class="mb-12 p-6 border-2 border-red-500 bg-black">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+       <div class="flex-shrink-0"><!-- Code icon SVG -->
+        <svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+       </div>
+       <div class="flex-1">
+        <p class="text-sm text-gray-400 mb-2 uppercase tracking-wide"><span class="text-red-500">[NOTEBOOK_DISPONÍVEL]</span></p>
+        <p class="text-xs text-gray-500">Acesse o Jupyter Notebook com análises práticas, código executável e dados de exemplo.</p>
+       </div><a href="https://github.com" target="_blank" rel="noopener noreferrer" class="notebook-cta px-6 py-3 text-sm flex-shrink-0 w-full sm:w-auto text-center" id="notebook-link"> VIEW SOURCE // ACESSAR NOTEBOOK </a>
+      </div>
+     </div><!-- Article Body -->
+     <article class="article-content">
+      <p class="text-lg text-gray-300 mb-8 border-l-4 border-red-500 pl-4 italic">Em 1967, Roland Barthes declarou a morte do autor. Em 2024, descobrimos que ele estava apenas em coma — e que agora fomos todos nós que morremos junto.</p>
+      <h2>I. O FANTASMA NA MÁQUINA</h2>
+      <p>Quando perguntamos a um modelo de linguagem "quem escreveu isso?", a resposta correta não é "GPT-4" ou "Claude". A resposta correta é: <em>ninguém</em>. E isso não é um bug — é a feature mais radical da tecnologia contemporânea.</p>
+      <p>Barthes argumentava que o texto é "um espaço de dimensões múltiplas onde se casam e se contestam escrituras variadas, nenhuma das quais é original". Se isso era verdade para a literatura do século XX, o que dizer de um sistema treinado em bilhões de textos, incapaz de distinguir suas "influências"?</p>
+      <blockquote>
+       O autor é uma personagem moderna, produto da nossa sociedade... é a ideologia capitalista que deu a maior importância à 'pessoa' do autor. 
+       <footer class="text-xs text-gray-600 mt-2">
+        — Roland Barthes, "A Morte do Autor" (1967)
+       </footer>
+      </blockquote>
+      <p>Mas se o autor foi uma invenção capitalista, o que fazemos quando o capitalismo inventa máquinas que escrevem sem autores? Quando a produção textual se torna tão barata que a autoria perde seu valor de mercado?</p>
+      <h2>II. CÓDIGO COMO ONTOLOGIA</h2>
+      <p>Considere este fragmento simples de Python que gera texto:</p>
+      <pre><code><span class="line"><span class="code-keyword">import</span> random</span>
+<span class="line"></span>
+<span class="line"><span class="code-keyword">def</span> <span class="code-function">gerar_autor</span>(corpus, temperatura=<span class="code-number">0.7</span>):</span>
+<span class="line">    <span class="code-string">"""</span></span>
+<span class="line">    <span class="code-string">Função que simula autoria através de</span></span>
+<span class="line">    <span class="code-string">amostragem probabilística de um corpus.</span></span>
+<span class="line">    <span class="code-string">"""</span></span>
+<span class="line">    tokens = corpus.split()</span>
+<span class="line">    resultado = []</span>
+<span class="line">    </span>
+<span class="line">    <span class="code-keyword">for</span> _ <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">100</span>):</span>
+<span class="line">        <span class="code-comment"># Quem é o autor aqui?</span></span>
+<span class="line">        <span class="code-comment"># O programador? O corpus? O random.choice?</span></span>
+<span class="line">        token = random.choice(tokens)</span>
+<span class="line">        resultado.append(token)</span>
+<span class="line">    </span>
+<span class="line">    <span class="code-keyword">return</span> <span class="code-string">" "</span>.join(resultado)</span>
+<span class="line"></span>
+<span class="line"><span class="code-comment"># A autoria está distribuída em:</span></span>
+<span class="line"><span class="code-comment"># 1. Quem escreveu esta função</span></span>
+<span class="line"><span class="code-comment"># 2. Quem compilou o corpus</span></span>
+<span class="line"><span class="code-comment"># 3. Quem escreveu os textos originais</span></span>
+<span class="line"><span class="code-comment"># 4. O próprio algoritmo de randomização</span></span>
+<span class="line"><span class="code-comment"># 5. Ninguém e todos simultaneamente</span></span></code></pre>
+      <p>Esta função trivial já põe em questão toda a ontologia da autoria. Quando escalamos isso para transformers com 175 bilhões de parâmetros, a questão não é "quem é o autor?", mas sim: <strong>a categoria 'autor' ainda faz algum sentido?</strong></p>
+      <h3>A Equação da Autoria Distribuída</h3>
+      <p>Se pudéssemos formalizar matematicamente a autoria em sistemas generativos, seria algo como:</p>
+      <div class="math-equation">
+       A(texto) = ∑<sub>i=1</sub><sup>n</sup> w<sub>i</sub> · C<sub>i</sub> + ε
+      </div>
+      <p class="text-sm text-gray-500 text-center -mt-4 mb-8">Onde A é autoria, C<sub>i</sub> são os fragmentos do corpus, w<sub>i</sub> são pesos de atenção, e ε é o ruído estocástico irredutível</p>
+      <p>O problema? <code>ε</code> não é um bug — é onde a "criatividade" emerge. E ninguém pode reivindicá-la como propriedade.</p>
+      <h2>III. IMPLICAÇÕES PRÁTICAS (OU: POR QUE ISSO IMPORTA)</h2>
+      <p>Esta não é apenas uma discussão teórica. Considere estas situações reais:</p>
+      <ul>
+       <li>Um estudante submete um ensaio gerado por IA. Quem plagioou quem?</li>
+       <li>Uma IA cria um romance best-seller. Quem recebe os royalties?</li>
+       <li>Um sistema gera código que viola uma patente. Quem é responsável?</li>
+       <li>Um modelo reproduz vieses racistas do corpus. Quem responde?</li>
+      </ul>
+      <p>Todas essas perguntas pressupõem que exista um <em>quem</em> — um sujeito responsável, um autor. Mas se Barthes estava certo, se a morte do autor era inevitável, então nossa obsessão com encontrar culpados é apenas nostalgia por um conceito que já estava moribundo.</p>
+      <blockquote>
+       Nascimento do leitor tem de pagar-se com a morte do autor. 
+       <footer class="text-xs text-gray-600 mt-2">
+        — Roland Barthes, novamente
+       </footer>
+      </blockquote>
+      <p>Mas e se agora nem o leitor sobrevive? Quando IAs leem IAs que escrevem para outras IAs, onde está o humano nessa cadeia?</p>
+      <h2>IV. CONCLUSÃO (OU: O QUE FAZER AGORA)</h2>
+      <p>A resposta não é romantizar o autor humano ou demonizar a máquina. A resposta é aceitar que estamos em território novo, onde conceitos como "originalidade", "autoria" e "criatividade" precisam ser radicalmente repensados.</p>
+      <p>Talvez o que precisamos não seja proteger o autor, mas <strong>abolir de vez a fantasia de que textos têm donos</strong>. Talvez precisemos de novos vocabulários, novos frameworks legais, novas éticas que não dependam de encontrar um sujeito responsável individual.</p>
+      <p>Porque no fim, a pergunta não é "quem escreveu isso?"</p>
+      <p class="text-xl text-red-500 font-bold">A pergunta é: por que ainda precisamos perguntar?</p>
+      <hr class="my-12 border-gray-800 border-t-2">
+      <p class="text-sm text-gray-500"><span class="text-red-500">[NOTA]</span> Este artigo foi escrito (?) por um humano (?) usando ferramentas (?) de escrita (?) em 2024 (?). Ou não. A questão é justamente que você não pode ter certeza — e isso é o ponto.</p>
+     </article><!-- Article Footer Navigation -->
+     <nav class="mt-16 pt-8 border-t-4 border-gray-800">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6"><!-- Previous Article --> <a href="#" class="nav-arrow p-6 block group">
+        <div class="flex items-center gap-4">
+         <svg class="w-8 h-8 text-gray-600 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+         </svg>
+         <div>
+          <div class="arrow-label text-xs text-gray-600 uppercase tracking-wider mb-2">
+           Artigo Anterior
+          </div>
+          <div class="text-sm uppercase font-bold text-gray-400 group-hover:text-red-500 transition-colors">
+           PANDAS É O NOVO EXCEL (E ISSO NÃO É UM ELOGIO)
+          </div>
+         </div>
+        </div></a> <!-- Next Article --> <a href="#" class="nav-arrow p-6 block group text-right">
+        <div class="flex items-center justify-end gap-4">
+         <div>
+          <div class="arrow-label text-xs text-gray-600 uppercase tracking-wider mb-2">
+           Próximo Artigo
+          </div>
+          <div class="text-sm uppercase font-bold text-gray-400 group-hover:text-red-500 transition-colors">
+           SCRAPING ÉTICO: EXTRAINDO DADOS SEM VENDER SUA ALMA
+          </div>
+         </div>
+         <svg class="w-8 h-8 text-gray-600 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+         </svg>
+        </div></a>
+      </div>
+     </nav>
+    </div>
+   </main><!-- Footer -->
+   <footer class="border-t-2 border-gray-800 py-8 px-4 mt-16">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="text-xs text-gray-600 mb-4"><span class="text-red-500">©</span> 2024 THIAGO SILVA // TODOS OS DIREITOS QUESTIONÁVEIS
+     </div>
+     <div class="text-xs text-gray-700"><span class="text-red-500">$</span> echo "Se você leu até aqui, você é o autor agora."
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      article_title: 'A MORTE DO AUTOR NA ERA DO GPT',
+      article_subtitle: 'Quem escreve quando ninguém escreve?',
+      article_author: 'THIAGO SILVA',
+      back_link_text: 'VOLTAR AO ÍNDICE',
+      notebook_link_text: 'VIEW SOURCE // ACESSAR NOTEBOOK',
+      background_color: '#000000',
+      surface_color: '#0A0A0A',
+      text_color: '#E0E0E0',
+      accent_color: '#FF2E2E',
+      muted_color: '#666666'
+    };
+
+    // Element references
+    const elements = {
+      articleTitle: document.getElementById('article-title'),
+      articleSubtitle: document.getElementById('article-subtitle'),
+      articleAuthor: document.getElementById('article-author'),
+      backLink: document.getElementById('back-link'),
+      notebookLink: document.getElementById('notebook-link')
+    };
+
+    // Update UI based on config
+    async function onConfigChange(config) {
+      // Update text content
+      elements.articleTitle.textContent = config.article_title || defaultConfig.article_title;
+      elements.articleSubtitle.textContent = config.article_subtitle || defaultConfig.article_subtitle;
+      elements.articleAuthor.textContent = config.article_author || defaultConfig.article_author;
+      
+      const backText = config.back_link_text || defaultConfig.back_link_text;
+      elements.backLink.innerHTML = `<span class="text-red-500">$</span> cd .. <span class="text-gray-600">//</span> ${backText}`;
+      
+      elements.notebookLink.textContent = config.notebook_link_text || defaultConfig.notebook_link_text;
+
+      // Update colors
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const mutedColor = config.muted_color || defaultConfig.muted_color;
+
+      document.body.style.backgroundColor = bgColor;
+      document.body.style.color = textColor;
+      
+      // Update accent color elements
+      document.querySelectorAll('.text-red-500').forEach(el => {
+        el.style.color = accentColor;
+      });
+      
+      document.querySelectorAll('.border-red-500').forEach(el => {
+        el.style.borderColor = accentColor;
+      });
+      
+      // Update surface colors
+      document.querySelectorAll('.metadata-box, .article-content blockquote, .article-content pre').forEach(el => {
+        el.style.backgroundColor = surfaceColor;
+      });
+      
+      // Update muted text
+      document.querySelectorAll('.text-gray-600, .text-gray-500').forEach(el => {
+        el.style.color = mutedColor;
+      });
+      
+      // Update reading progress bar
+      document.getElementById('reading-progress').style.backgroundColor = accentColor;
+    }
+
+    // Map config to capabilities
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              window.elementSdk.setConfig({ accent_color: value });
+            }
+          },
+          {
+            get: () => config.muted_color || defaultConfig.muted_color,
+            set: (value) => {
+              config.muted_color = value;
+              window.elementSdk.setConfig({ muted_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    // Map config to edit panel values
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['article_title', config.article_title || defaultConfig.article_title],
+        ['article_subtitle', config.article_subtitle || defaultConfig.article_subtitle],
+        ['article_author', config.article_author || defaultConfig.article_author],
+        ['back_link_text', config.back_link_text || defaultConfig.back_link_text],
+        ['notebook_link_text', config.notebook_link_text || defaultConfig.notebook_link_text]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Reading progress indicator
+    function updateReadingProgress() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const progress = (scrollTop / documentHeight) * 100;
+      
+      document.getElementById('reading-progress').style.width = progress + '%';
+    }
+
+    window.addEventListener('scroll', updateReadingProgress);
+    updateReadingProgress();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bcf54032553c58a',t:'MTc2ODI0ODk1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
